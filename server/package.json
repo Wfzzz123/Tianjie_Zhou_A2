@@ -1,0 +1,14 @@
+{
+  "name": "pine-river-api",
+  "version": "1.0.0",
+  "description": "Read-only API for Pine & River Community Trust events",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.0"
+  }
+}
