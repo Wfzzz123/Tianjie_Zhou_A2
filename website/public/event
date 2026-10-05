@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event | Pine &amp; River</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body data-screen="event">
+  <div class="app">
+    <aside id="menu-root" class="rail"></aside>
+
+    <div class="workspace">
+      <main>
+        <article id="detail-body"></article>
+
+        <aside id="signup-box" class="signup" hidden>
+          <h2>Hold a place</h2>
+          <p>Ticket purchase is not live yet. The fields show what will be asked later.</p>
+          <form id="signup-form" class="signup-form" novalidate>
+            <label>Name <input type="text" name="fullName"></label>
+            <label>Email <input type="email" name="email"></label>
+            <label>Tickets <input type="number" name="qty" min="1" value="1"></label>
+            <button type="submit">Register</button>
+          </form>
+        </aside>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="hold-dialog">
+    <p>This feature is currently under construction.</p>
+    <button type="button" data-dismiss>Close</button>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/http.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/detail-page.js"></script>
+</body>
+</html>
