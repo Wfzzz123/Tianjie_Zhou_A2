@@ -1,0 +1,39 @@
+# Pine & River Community Trust
+
+PROG2002 Assessment 2. Public site for charity events in Brisbane.
+
+Two Node apps live side by side:
+
+- `server` — Express + MySQL, GET only
+- `website` — static pages on a small Express host
+
+## Setup
+
+Import `server/sql/charityevents_db.sql` in MySQL Workbench.
+
+Edit `server/event_db.js` so the user and password match your MySQL login.
+
+```bash
+cd server
+npm install
+npm start
+```
+
+API: http://localhost:3002
+
+```bash
+cd website
+npm install
+npm start
+```
+
+Website: http://localhost:3003
+
+Keep both processes running.
+
+## Endpoints
+
+- `GET /api/events` — current and upcoming public events
+- `GET /api/events/search?date=&location=&category=` — optional filters; past events allowed
+- `GET /api/events/:id` — one event; paused rows return 404
+- `GET /api/categories` — filter options
