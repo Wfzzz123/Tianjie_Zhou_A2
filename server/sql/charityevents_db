@@ -1,0 +1,158 @@
+DROP DATABASE IF EXISTS charityevents_db;
+CREATE DATABASE charityevents_db
+  DEFAULT CHARACTER SET utf8mb4
+  DEFAULT COLLATE utf8mb4_general_ci;
+
+USE charityevents_db;
+
+CREATE TABLE organisations (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  contact_email VARCHAR(255) NOT NULL,
+  contact_phone VARCHAR(50) NOT NULL,
+  address VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE events (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  organisation_id INT NOT NULL,
+  category_id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  short_description VARCHAR(500) NOT NULL,
+  full_description TEXT NOT NULL,
+  purpose VARCHAR(255) NOT NULL,
+  event_date DATETIME NOT NULL,
+  location VARCHAR(255) NOT NULL,
+  ticket_price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  goal_amount DECIMAL(10, 2) NOT NULL,
+  current_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  is_suspended TINYINT(1) NOT NULL DEFAULT 0,
+  CONSTRAINT events_org_fk FOREIGN KEY (organisation_id) REFERENCES organisations(id),
+  CONSTRAINT events_cat_fk FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+INSERT INTO organisations (name, description, contact_email, contact_phone, address) VALUES (
+  'Pine & River Community Trust',
+  'A Brisbane charity that funds shared meals, literacy tutoring, and cheap transport for families living near the river.',
+  'office@pineandriver.org.au',
+  '(07) 3844 2091',
+  '18 Boundary Street, West End QLD 4101'
+);
+
+INSERT INTO categories (name) VALUES
+  ('Charity Run'),
+  ('Evening Gala'),
+  ('Auction Night'),
+  ('Benefit Concert'),
+  ('Street Fair');
+
+INSERT INTO events (
+  organisation_id, category_id, name, short_description, full_description,
+  purpose, event_date, location, ticket_price, goal_amount, current_amount, is_suspended
+) VALUES
+(
+  1, 1,
+  'City Loop Charity Run',
+  'A 6 km loop from the Goodwill Bridge, open to walkers and runners.',
+  'Start packs are handed out from 6:30 am near the wheel. The course stays on the river path and finishes at the lawn beside the gallery. Marshals will be on the tight corners. Entry includes a fruit box. Money from this run pays for after-school meals in West End.',
+  'After-school meals',
+  '2026-10-19 07:30:00',
+  'South Bank',
+  30.00, 18000.00, 6400.00, 0
+),
+(
+  1, 2,
+  'River Hall Evening Gala',
+  'A seated dinner in New Farm with a short auction of local art.',
+  'Guests sit at tables of eight. The kitchen is serving a two-course meal. Speakers from the literacy program have ten minutes each. Black tie is optional. Net ticket income goes to adult reading classes in Woolloongabba.',
+  'Adult literacy classes',
+  '2026-11-14 19:00:00',
+  'New Farm',
+  220.00, 95000.00, 31000.00, 0
+),
+(
+  1, 3,
+  'Books and Bikes Auction',
+  'Bid on repaired bikes and donated books in a West End hall.',
+  'Doors open at 3:30 pm. Lots are listed on paper cards around the room. A caller will close each lot in order. Tea is free. Nearly all of the current total is already pledged to a bike-repair workshop for teenagers.',
+  'Teen bike workshop',
+  '2026-10-09 16:00:00',
+  'West End',
+  15.00, 9000.00, 8700.00, 0
+),
+(
+  1, 4,
+  'Warehouse Benefit Concert',
+  'Two local bands and a choir in a Fortitude Valley warehouse.',
+  'Standing room only. Ear plugs are at the door. The bar sells water and soft drink. The last set ends at 10:30 pm. Ticket money supports late-night bus fares for people leaving the Valley after work.',
+  'Late-night bus fares',
+  '2026-12-12 20:00:00',
+  'Fortitude Valley',
+  40.00, 22000.00, 5500.00, 0
+),
+(
+  1, 5,
+  'Autumn Street Fair',
+  'A June market on Given Terrace with food stalls and a raffle.',
+  'This fair has already been held. Stall fees and the raffle covered school holiday lunches for the winter break. The day finished slightly above the written goal.',
+  'Holiday lunches',
+  '2026-06-21 09:00:00',
+  'Paddington',
+  0.00, 7000.00, 7200.00, 0
+),
+(
+  1, 1,
+  'Story Bridge Dawn Jog',
+  'A short guided jog across the Story Bridge and back.',
+  'Meet at the Kangaroo Point stairs. The group walks the first kilometre, then jogs the bridge span. There is a water stop at the northern end. Fees pay for swim lessons for children who cannot reach a pool by bus.',
+  'Children swim lessons',
+  '2026-10-03 06:30:00',
+  'Kangaroo Point',
+  20.00, 10000.00, 2800.00, 0
+),
+(
+  1, 3,
+  'May Auction for Meals',
+  'A small auction of kitchen tools held in May.',
+  'This night is over. The room was half full and the final total sat under the goal. The money still bought two weeks of pantry boxes.',
+  'Pantry boxes',
+  '2026-05-16 17:30:00',
+  'Woolloongabba',
+  12.00, 5000.00, 1900.00, 0
+),
+(
+  1, 4,
+  'Chapel Street Choir Night',
+  'Community choirs share a program in a Paddington hall.',
+  'Seating is unreserved. Printed programs are on each chair. The interval is twenty minutes. All ticket income is already counted toward the goal for sheet music and a visiting conductor.',
+  'Choir music fund',
+  '2026-11-28 18:00:00',
+  'Paddington',
+  28.00, 14000.00, 14000.00, 0
+),
+(
+  1, 5,
+  'Unlisted Rooftop Raffle',
+  'Removed after a review of the fundraising rules.',
+  'Staff paused this listing because the raffle did not follow the trust policy. The row stays in the database for records and must not appear on the public site.',
+  'Internal review',
+  '2026-10-22 18:30:00',
+  'Fortitude Valley',
+  8.00, 1500.00, 50.00, 1
+),
+(
+  1, 5,
+  'Saturday Produce Swap',
+  'A free swap of fruit, herbs, and seedlings in West End.',
+  'Bring surplus produce if you have it. The trust will set out crates and a shade tent. There is no ticket. Optional cash donations on the day support the same community garden beds used by the swap.',
+  'Community garden beds',
+  '2026-10-31 08:00:00',
+  'West End',
+  0.00, 4000.00, 900.00, 0
+);
