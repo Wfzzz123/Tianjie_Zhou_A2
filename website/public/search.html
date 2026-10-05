@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find events | Pine &amp; River</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body data-screen="search">
+  <div class="app">
+    <aside id="menu-root" class="rail"></aside>
+
+    <div class="workspace">
+      <main>
+        <section class="mast">
+          <p class="code">FILTER</p>
+          <h1>Find events</h1>
+          <p>Use any mix of date, suburb, and type. Finished events can appear. Paused events cannot.</p>
+        </section>
+
+        <form id="find-form" class="filter-rail" novalidate>
+          <label>Date <input id="q-date" type="date" name="date"></label>
+          <label>Suburb <input id="q-place" type="text" name="location" placeholder="West End"></label>
+          <label>Type
+            <select id="q-type" name="category">
+              <option value="">All types</option>
+            </select>
+          </label>
+          <div class="filter-actions">
+            <button type="submit">Apply</button>
+            <button type="button" id="reset-find" class="ghost">Clear filters</button>
+          </div>
+        </form>
+
+        <p id="find-note" class="note" hidden></p>
+        <div id="find-list" class="tile-board"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/http.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/search-page.js"></script>
+</body>
+</html>
